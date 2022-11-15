@@ -13,7 +13,7 @@ namespace AdventOfCode2015.Days
 
         public Day03()
         {
-            var result = Stage1();
+            var result = Stage2();
 
             Console.WriteLine(result);
 
@@ -22,7 +22,113 @@ namespace AdventOfCode2015.Days
 
         private string Stage1()
         {
-            throw new NotImplementedException();
+            var count = 0;
+            var x = 0;
+            var y = 0;
+
+            Dictionary<(int, int), int> houses = new Dictionary<(int, int), int>();
+
+            houses.Add((0, 0), 1);
+
+            foreach (var character in input)
+            {
+                count++;
+
+                switch (character)
+                {
+                    case 'v':
+                        y--;
+                        break;
+
+                    case '^':
+                        y++;
+                        break;
+
+                    case '>':
+                        x++;
+                        break;
+
+                    case '<':
+                        x--;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (houses.ContainsKey((x, y)))
+                {
+                    houses[(x, y)] = houses[(x, y)] + 1;
+                }
+                else
+                {
+                    houses.Add((x, y), 1);
+                }
+            }
+
+            return houses.Count().ToString();
+        }
+
+        private string Stage2()
+        {
+            var count = 0;
+            (int x, int y) santa = (0, 0);
+            (int x, int y) roboSanta = (0, 0);
+            
+            Dictionary<(int, int), int> houses = new Dictionary<(int, int), int>();
+
+            houses.Add((0, 0), 2);
+
+            foreach (var character in input)
+            {
+                count++;
+                if (count % 2 == 1)
+                {
+                    santa = DoStep(houses, character, santa);
+                }
+                else
+                {
+                    roboSanta = DoStep(houses, character, roboSanta);
+                }
+            }
+
+            return houses.Count().ToString();
+        }
+
+        private static (int x, int y) DoStep(Dictionary<(int, int), int> houses, char character, (int x, int y) s)
+        {
+            switch (character)
+            {
+                case 'v':
+                    s.y--;
+                    break;
+
+                case '^':
+                    s.y++;
+                    break;
+
+                case '>':
+                    s.x++;
+                    break;
+
+                case '<':
+                    s.x--;
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (houses.ContainsKey((s.x, s.y)))
+            {
+                houses[(s.x, s.y)] = houses[(s.x, s.y)] + 1;
+            }
+            else
+            {
+                houses.Add((s.x, s.y), 1);
+            }
+
+            return s;
         }
     }
 }
