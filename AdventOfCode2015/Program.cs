@@ -5,7 +5,7 @@ internal class Program
     [STAThread]
     private static void Main(string[] args)
     {
-        Day06 day = new Day06();
+        Day07 day = new Day07();
 
         Console.ReadLine();
     }
