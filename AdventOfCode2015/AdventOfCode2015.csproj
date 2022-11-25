@@ -8,4 +8,8 @@
     <UseWPF>True</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Input\" />
+  </ItemGroup>
+
 </Project>
